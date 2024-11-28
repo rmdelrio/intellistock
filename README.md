@@ -98,3 +98,11 @@ Ensure all dependencies are installed.
 Run backend and frontend servers simultaneously:
 Backend: python manage.py runserver
 Frontend: npm start
+
+
+Contributors
+Rica Marie Del Rio - Backend API Development
+Christian Paul Marco - Database Design
+Alvin Merritt - Frontend UI/UX Prototypes
+Jose Carlo Dolor - Test Cases and Deployment Diagram
+Jose Carlos Dominic Gaa - Project Management
