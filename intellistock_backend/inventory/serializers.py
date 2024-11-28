@@ -1,12 +1,15 @@
 from rest_framework import serializers
-from .models import Item, Order, OrderItem
+from .models import *
 
-# Serializers convert Django model instances to JSON and vice versa. 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['id', 'name', 'description', 'quantity_in_stock', 'reorder_level', 'perishable', 'expiration_date']
+        fields = '__all__'
 
+class VendorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vendor
+        fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,3 +21,27 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = '__all__'
 
+class DailySalesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailySales
+        fields = '__all__'
+
+class MonthlySalesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MonthlySales
+        fields = '__all__'
+
+class DeliverySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Delivery
+        fields = '__all__'
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+class StoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Store
+        fields = '__all__'
