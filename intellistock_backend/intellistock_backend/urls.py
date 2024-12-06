@@ -16,8 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+
+# Simple homepage view
+def homepage(request):
+    return HttpResponse("<h1>Welcome to IntelliStock</h1>")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('inventory.urls')),
+    path('', homepage),  # Root URL points to the homepage
+    path('api/', include('inventory.urls')),  # API endpoints
 ]

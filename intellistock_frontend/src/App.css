@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+a.navbar-brand {
+  margin-left: 20px;
+}
+
+div#tableRow {
+  padding-top: 80px;
+}
