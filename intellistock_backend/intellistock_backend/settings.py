@@ -130,7 +130,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'intellistockdb',
-        'USER': 'intellistock_user',      # Replace with your PostgreSQL username
+        'USER': 'postgres',      # Replace with your PostgreSQL username
         'PASSWORD': 'postgres',  # Replace with your PostgreSQL password
         'HOST': 'localhost',          # Usually localhost
         'PORT': '5432',               # Default PostgreSQL port

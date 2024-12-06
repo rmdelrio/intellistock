@@ -1,0 +1,78 @@
+from django.shortcuts import render
+
+# Use Django REST Framework views to define the API endpoints for creating, retrieving, updating, and deleting items. 
+from rest_framework.viewsets import ModelViewSet
+from .models import Item, Vendor, Order, OrderItem, DailySales, MonthlySales, Delivery, Category, Store
+from .serializers import (
+    ItemSerializer, VendorSerializer, OrderSerializer, OrderItemSerializer,
+    DailySalesSerializer, MonthlySalesSerializer, DeliverySerializer, CategorySerializer, StoreSerializer
+)
+
+from django.http import HttpResponse
+from rest_framework.views import APIView
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.decorators import action
+
+
+def home(request):
+    return HttpResponse("<h1>Welcome to IntelliStock</h1><p>This is the home page.</p>")
+
+class ItemListCreateView(APIView):
+    def get(self, request):
+        items = Item.objects.all()
+        serializer = ItemSerializer(items, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ItemSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class ItemViewSet(ModelViewSet):
+#     queryset = Item.objects.all()
+#     serializer_class = ItemSerializer
+class ItemViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+
+    @action(detail=False, methods=['get'], url_path='low-stock')
+    def low_stock(self, request):
+        """Custom endpoint for low-stock items"""
+        low_stock_items = self.queryset.filter(quantity_on_hand__lt=10)
+        serializer = self.get_serializer(low_stock_items, many=True)
+        return Response(serializer.data)
+
+class VendorViewSet(ModelViewSet):
+    queryset = Vendor.objects.all()
+    serializer_class = VendorSerializer
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer 
+
+class OrderItemViewSet(ModelViewSet):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+
+class DailySalesViewSet(ModelViewSet):
+    queryset = DailySales.objects.all()
+    serializer_class = DailySalesSerializer
+
+class MonthlySalesViewSet(ModelViewSet):
+    queryset = MonthlySales.objects.all()
+    serializer_class = MonthlySalesSerializer
+
+class DeliveryViewSet(ModelViewSet):
+    queryset = Delivery.objects.all()
+    serializer_class = DeliverySerializer
+
+class CategoryViewSet(ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class StoreViewSet(ModelViewSet):
+    queryset = Store.objects.all()
+    serializer_class = StoreSerializer
